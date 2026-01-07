@@ -3,21 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kaspi</title>
-<link rel="stylesheet" href="style.css">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#ffffff">
+
+<title>Kaspi UI</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-512.png">
+
+<style>
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background:#f6f6f6;
+}
+.screen { display:none; min-height:100vh; background:#fff; }
+.screen.active { display:block; }
+
+.header {
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  background:#fff;
+}
+.back {
+  position:absolute;
+  left:12px;
+  font-size:26px;
+  background:none;
+  border:none;
+}
+
+/* ===== LIST ===== */
+.list { padding:16px; }
+.item {
+  display:flex;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+}
+.icon {
+  width:36px;height:36px;
+  border-radius:50%;
+  background:#ffeaea;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-right:12px;
+  color:#ff3b30;
+  font-weight:600;
+}
+.arrow { margin-left:auto; color:#ccc; }
+
+/* ===== BUTTON ===== */
+.primary {
+  margin:16px;
+  padding:14px;
+  border-radius:12px;
+  border:2px solid #2b6bcc;
+  color:#2b6bcc;
+  background:#fff;
+  text-align:center;
+}
+
+/* ===== DOCUMENT SCREEN (ТВОЙ) ===== */
+.photo-area { padding:40px 16px; text-align:center; }
+.upload-btn {
+  background:#2b6bcc;
+  color:#fff;
+  padding:14px 26px;
+  border-radius:12px;
+  border:none;
+  font-size:16px;
+}
+.actions { padding:16px; }
+.primary-blue {
+  width:100%;
+  background:#2b6bcc;
+  color:#fff;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+}
+.outline {
+  width:100%;
+  margin-top:10px;
+  border:2px solid #2b6bcc;
+  color:#2b6bcc;
+  padding:14px;
+  border-radius:12px;
+  background:#fff;
+}
+
+/* ===== QR ===== */
+.qr-modal {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.35);
+  display:none;
+  align-items:flex-end;
+}
+.qr-modal.show { display:flex; }
+.qr-sheet {
+  width:100%;
+  background:#fff;
+  border-radius:16px 16px 0 0;
+  padding:16px;
+}
+.qr-code { text-align:center; font-size:28px; font-weight:600; }
+</style>
 </head>
+
 <body>
 
-<div class="header">
-  <div class="title">Сервисы</div>
-</div>
+<!-- ===== ГЛАВНАЯ ===== -->
+<section id="home" class="screen active">
+  <div class="header"><div>Главная</div></div>
+  <div class="list">
+    <div class="item" onclick="showScreen('services')">
+      <div class="icon">≡</div>
+      Госуслуги
+      <div class="arrow">›</div>
+    </div>
+  </div>
+</section>
 
-<div class="list">
-  <div class="item" onclick="location.href='gosuslugi.html'">
-    <span>Госуслуги</span>
-    <div class="arrow">›</div>
+<!-- ===== ГОСУСЛУГИ ===== -->
+<section id="services" class="screen">
+  <div class="header">
+    <button class="back" onclick="back()">‹</button>
+    <div>Госуслуги</div>
+  </div>
+
+  <div class="list">
+    <div class="item" onclick="showScreen('digital')">
+      <div class="icon">📄</div>
+      Цифровые документы
+      <div class="arrow">›</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ЦИФРОВЫЕ ДОКУМЕНТЫ ===== -->
+<section id="digital" class="screen">
+  <div class="header">
+    <button class="back" onclick="back()">‹</button>
+    <div>Цифровые документы</div>
+  </div>
+
+  <div class="list">
+    <div class="item" onclick="showScreen('idcard')">
+      <div class="icon">🪪</div>
+      Удостоверение личности
+      <div class="arrow">›</div>
+    </div>
+  </div>
+
+  <div class="primary">Обновить список документов</div>
+</section>
+
+<!-- ===== ТВОЙ ГОТОВЫЙ ЭКРАН ===== -->
+<section id="idcard" class="screen">
+  <div class="header">
+    <button class="back" onclick="back()">‹</button>
+    <div>Удостоверение личности</div>
+  </div>
+
+  <div class="photo-area">
+    <button class="upload-btn">Загрузить фото</button>
+  </div>
+
+  <div class="actions">
+    <button class="primary-blue" onclick="openQR()">Предъявить документ</button>
+    <button class="outline">Отправить документ</button>
+  </div>
+</section>
+
+<!-- ===== QR ===== -->
+<div id="qr" class="qr-modal" onclick="closeQR(event)">
+  <div class="qr-sheet">
+    <h3>Удостоверение личности</h3>
+    <p>Покажите QR-код сотруднику</p>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=yeahwww">
+    <p>или скажите код</p>
+    <div class="qr-code">080824</div>
   </div>
 </div>
+
+<script>
+const stack = ['home'];
+
+function showScreen(id){
+  document.getElementById(stack.at(-1)).classList.remove('active');
+  stack.push(id);
+  document.getElementById(id).classList.add('active');
+}
+
+function back(){
+  if(stack.length===1) return;
+  document.getElementById(stack.pop()).classList.remove('active');
+  document.getElementById(stack.at(-1)).classList.add('active');
+}
+
+function openQR(){
+  document.getElementById('qr').classList.add('show');
+}
+function closeQR(e){
+  if(e.target.id==='qr') document.getElementById('qr').classList.remove('show');
+}
+</script>
 
 </body>
 </html>
