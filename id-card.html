@@ -1,142 +1,48 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#ffffff">
+<section id="id-card" class="screen active">
 
-  <title>yeahwww</title>
+  <!-- SEGMENT TABS -->
+  <div class="segment">
+    <button class="segment-btn active" data-seg="doc">Документ</button>
+    <button class="segment-btn" data-seg="req">Реквизиты</button>
+  </div>
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon-512.png">
-</head>
-
-<body>
-
-<!-- HEADER -->
-<div class="header">
-  <button class="back-btn">‹</button>
-  <div class="header-title">Удостоверение личности</div>
-</div>
-
-<!-- TABS -->
-<div class="tabs">
-  <button class="tab active" data-tab="doc">Документ</button>
-  <button class="tab" data-tab="req">Реквизиты</button>
-</div>
-
-<button class="back-btn" onclick="history.back()">‹</button>
-
-
-<!-- DOCUMENT -->
-<section id="doc" class="screen active">
-  <div class="photo-area">
-    <button id="uploadBtn" class="upload-btn">Загрузить фото</button>
+  <!-- DOCUMENT -->
+  <div id="seg-doc" class="seg-content active">
+    <button id="uploadBtn" class="btn primary">Загрузить</button>
     <input type="file" id="photo" hidden accept="image/*">
+
     <div id="preview"></div>
+
+    <button id="showQrBtn" class="btn primary full">
+      Предъявить документ
+    </button>
+
+    <button class="btn outline full">
+      Отправить документ
+    </button>
   </div>
 
-  <div class="actions">
-    <button class="primary" id="showQrBtn">Предъявить документ</button>
-    <button class="outline">Отправить документ</button>
-  </div>
-</section>
-
-<!-- REQUISITES -->
-<section id="req" class="screen">
-  <div class="form">
+  <!-- REQUISITES -->
+  <div id="seg-req" class="seg-content">
     <div class="field">
       <label>ФИО</label>
-      <input id="fio" placeholder="Официальный Telegram – @yeahwww">
+      <input id="fio">
     </div>
 
-    <div class="field"><label>ИИН</label><input id="iin"></div>
-    <div class="field"><label>Дата рождения</label><input id="birth"></div>
-    <div class="field"><label>Номер документа</label><input id="docnum"></div>
-    <div class="field"><label>Дата выдачи</label><input id="issued"></div>
-    <div class="field"><label>Срок действия</label><input id="expiry"></div>
+    <div class="field">
+      <label>ИИН</label>
+      <input id="iin">
+    </div>
+
+    <div class="field">
+      <label>Дата рождения</label>
+      <input id="birth">
+    </div>
+
+    <div class="field">
+      <label>Номер документа</label>
+      <input id="docnum">
+    </div>
   </div>
+
 </section>
-
-<!-- QR MODAL -->
-<div id="qrModal" class="qr-modal">
-  <div class="qr-sheet">
-    <div class="qr-header">
-      <div class="qr-title">Удостоверение личности</div>
-      <button class="qr-close" id="closeQr">×</button>
-    </div>
-
-    <div class="qr-content">
-      <div class="qr-text">Покажите QR-код сотруднику</div>
-      <img class="qr-image"
-        src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=yeahwww">
-      <div class="qr-subtext">или скажите код</div>
-      <div class="qr-code">080824</div>
-    </div>
-  </div>
-</div>
-
-<!-- ✅ ЕДИНСТВЕННЫЙ JS -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-  /* ===== ТАБЫ ===== */
-  document.querySelectorAll('.tab').forEach(btn => {
-    btn.onclick = () => {
-      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById(btn.dataset.tab).classList.add('active');
-    };
-  });
-
-  /* ===== ЗАГРУЗКА ФОТО ===== */
-  const uploadBtn = document.getElementById('uploadBtn');
-  const photo = document.getElementById('photo');
-  const preview = document.getElementById('preview');
-
-  uploadBtn.onclick = () => photo.click();
-
-  photo.onchange = () => {
-    const file = photo.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = e => {
-      preview.innerHTML = `<img src="${e.target.result}">`;
-      uploadBtn.style.display = 'none';
-      localStorage.setItem('photo', e.target.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const savedPhoto = localStorage.getItem('photo');
-  if (savedPhoto) {
-    preview.innerHTML = `<img src="${savedPhoto}">`;
-    uploadBtn.style.display = 'none';
-  }
-
-  /* ===== СОХРАНЕНИЕ ПОЛЕЙ ===== */
-  ['fio','iin','birth','docnum','issued','expiry'].forEach(id => {
-    const el = document.getElementById(id);
-    el.value = localStorage.getItem(id) || '';
-    el.oninput = () => localStorage.setItem(id, el.value);
-  });
-
-  /* ===== QR ===== */
-  const showQrBtn = document.getElementById('showQrBtn');
-  const qrModal = document.getElementById('qrModal');
-  const closeQr = document.getElementById('closeQr');
-
-  showQrBtn.onclick = () => qrModal.classList.add('show');
-  closeQr.onclick = () => qrModal.classList.remove('show');
-  qrModal.onclick = e => e.target === qrModal && qrModal.classList.remove('show');
-
-});
-</script>
-
-</body>
-</html>
