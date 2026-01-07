@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Цифровые документы</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+<section id="docs" class="screen">
+  <h3 class="section-title">Мои документы</h3>
 
-<div class="header">
-  <button class="back-btn" onclick="history.back()">‹</button>
-  <div class="title">Цифровые документы</div>
-</div>
+  <div class="kaspi-list">
+    <button class="kaspi-item" data-go="id-card">
+      <span class="icon id"></span>
+      <div class="title">Удостоверение личности</div>
+      <span class="arrow">›</span>
+    </button>
 
-<div class="list">
-  <div class="item" onclick="location.href='id-card.html'">
-    <span>Удостоверение личности</span>
-    <div class="arrow">›</div>
+    <div class="kaspi-item disabled">
+      <span class="icon file"></span>
+      <div class="title">Справки</div>
+      <span class="arrow">›</span>
+    </div>
   </div>
-</div>
 
-</body>
-</html>
+  <button class="refresh-btn">Обновить список документов</button>
+</section>
