@@ -1,24 +1,22 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Госуслуги</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+<section id="services" class="screen">
+  <div class="kaspi-list">
 
-<div class="header">
-  <button class="back-btn" onclick="history.back()">‹</button>
-  <div class="title">Госуслуги</div>
-</div>
+    <button class="kaspi-item" data-go="docs">
+      <span class="icon doc"></span>
+      <div>
+        <div class="title">Цифровые документы</div>
+        <div class="subtitle">Удостоверение, водительские права</div>
+      </div>
+      <span class="arrow">›</span>
+    </button>
 
-<div class="list">
-  <div class="item" onclick="location.href='digital-docs.html'">
-    <span>Цифровые документы</span>
-    <div class="arrow">›</div>
+    <div class="kaspi-item disabled">
+      <span class="icon money"></span>
+      <div>
+        <div class="title">Пособия и выплаты</div>
+      </div>
+      <span class="arrow">›</span>
+    </div>
+
   </div>
-</div>
-
-</body>
-</html>
+</section>
