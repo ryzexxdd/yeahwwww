@@ -45,3 +45,85 @@ body {
   color: #999;
   font-size: 20px;
 }
+/* ===== KASPI STYLE ===== */
+
+.kaspi-list {
+  padding: 8px 0;
+}
+
+.kaspi-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  border: none;
+}
+
+.kaspi-item.disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+
+.kaspi-item .title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+
+.kaspi-item .subtitle {
+  font-size: 13px;
+  color: #8e8e93;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 22px;
+  color: #c7c7cc;
+}
+
+/* icons */
+.icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1.5px solid #ff3b30;
+  position: relative;
+}
+
+.icon::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 2px;
+  background: #ff3b30;
+}
+
+.icon.money::after { border-radius: 50%; }
+.icon.file::after { inset: 7px; }
+.icon.id::after { inset: 5px; }
+
+/* titles */
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  padding: 16px;
+}
+
+/* refresh button */
+.refresh-btn {
+  margin: 24px 16px;
+  width: calc(100% - 32px);
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid #2b6bcc;
+  background: #fff;
+  color: #2b6bcc;
+  font-size: 16px;
+  font-weight: 500;
+}
+
