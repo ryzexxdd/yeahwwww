@@ -127,3 +127,54 @@ body {
   font-weight: 500;
 }
 
+.segment {
+  display: flex;
+  background: #f1f1f1;
+  border-radius: 12px;
+  padding: 4px;
+  margin: 16px;
+}
+
+.segment-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.segment-btn.active {
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+.seg-content {
+  display: none;
+  padding: 20px;
+}
+
+.seg-content.active {
+  display: block;
+}
+
+.btn.primary {
+  background: #2f6fd6;
+  color: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  border: none;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.btn.outline {
+  border: 2px solid #2f6fd6;
+  color: #2f6fd6;
+  background: none;
+  border-radius: 12px;
+  padding: 14px;
+  width: 100%;
+  margin-top: 12px;
+}
+
